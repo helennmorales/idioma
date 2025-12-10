@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar Sesión – LinguaBloom</title>
+
+<style>
+body {
+    background: #FFE585;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Poppins;
+}
+
+.box {
+    background: white;
+    padding: 30px;
+    width: 320px;
+    border-radius: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 2px solid #1F2A40;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #1F2A40;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Iniciar sesión</h2>
+
+    <input type="text" id="user" placeholder="Usuario">
+    <input type="password" id="pass" placeholder="Contraseña">
+
+    <button onclick="login()">Entrar</button>
+    <p><a href="registrar.html">Crear cuenta</a></p>
+</div>
+
+<script>
+function login() {
+    let u = document.getElementById("user").value;
+    let p = document.getElementById("pass").value;
+
+    let datos = localStorage.getItem("usuario_" + u);
+    if (!datos) {
+        alert("Usuario no encontrado");
+        return;
+    }
+
+    let obj = JSON.parse(datos);
+    if (obj.pass !== p) {
+        alert("Contraseña incorrecta");
+        return;
+    }
+
+    localStorage.setItem("usuarioActual", u);
+
+    if (!localStorage.getItem("puntos_" + u)) {
+        localStorage.setItem("puntos_" + u, 0);
+    }
+
+    location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
