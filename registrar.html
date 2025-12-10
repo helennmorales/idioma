@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear Cuenta – LinguaBloom</title>
+
+<style>
+body {
+    background: #A6F2C1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Poppins;
+}
+
+.box {
+    background: white;
+    padding: 30px;
+    width: 320px;
+    border-radius: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 2px solid #1F2A40;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #72E0A8;
+    color: #1F2A40;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Crear cuenta</h2>
+
+    <input type="text" id="user" placeholder="Nombre de usuario">
+    <input type="email" id="correo" placeholder="Correo">
+    <input type="password" id="pass" placeholder="Contraseña">
+
+    <button onclick="registrar()">Registrarse</button>
+</div>
+
+<script>
+function registrar() {
+    let u = document.getElementById("user").value;
+    let c = document.getElementById("correo").value;
+    let p = document.getElementById("pass").value;
+
+    if (!u || !c || !p) {
+        alert("Completa todos los campos");
+        return;
+    }
+
+    if (localStorage.getItem("usuario_" + u)) {
+        alert("Ese usuario ya existe");
+        return;
+    }
+
+    localStorage.setItem("usuario_" + u, JSON.stringify({correo: c, pass: p}));
+    alert("Cuenta creada exitosamente");
+    location.href = "iniciar.html";
+}
+</script>
+
+</body>
+</html>
