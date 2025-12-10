@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaBloom</title>
+
+<style>
+/* ---- PALETA DE COLORES ---- */
+:root{
+    --azul:#1F2A40;
+    --verde:#72E0A8;
+    --verde2:#A6F2C1;
+    --fondo:#F5F7FA;
+    --sombra:rgba(0,0,0,0.15);
+}
+
+/* ---- ONDAS ANIMADAS ---- */
+.wave{
+    position:absolute;
+    top:0;
+    left:0;
+    width:200%;
+    height:180px;
+    background:var(--verde);
+    border-radius:0 0 45% 45%;
+    animation:waveMove 8s linear infinite;
+    opacity:0.55;
+}
+.wave:nth-child(2){animation-duration:11s;opacity:.35;top:35px;background:var(--verde2);}
+.wave:nth-child(3){animation-duration:15s;opacity:.25;top:65px;}
+
+@keyframes waveMove{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+}
+
+body{
+    margin:0;
+    background:var(--fondo);
+    font-family:Poppins,Arial;
+    overflow-x:hidden;
+}
+
+/* ---- ENCABEZADO ---- */
+header{
+    background:var(--azul);
+    color:white;
+    padding:15px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.btn{
+    padding:10px 25px;
+    border-radius:30px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+.login-btn{background:var(--verde2);color:var(--azul);}
+.logout-btn{background:#ff6b6b;color:white;}
+.login-btn:hover,.logout-btn:hover{transform:scale(1.07);}
+
+/* ---- BANNER ---- */
+.banner{
+    margin-top:80px;
+    text-align:center;
+    padding:90px 25px;
+    background:var(--verde);
+    color:var(--azul);
+    border-radius:0 0 50% 50%;
+    font-size:2rem;
+    font-weight:bold;
+    animation:fadeIn 1.8s ease;
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(-20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* ---- FRASE MOTIVACIONAL ---- */
+#frase{
+    text-align:center;
+    margin:25px;
+    font-style:italic;
+    color:#333;
+    animation:fadeIn 2s ease;
+}
+
+/* ---- TARJETAS ---- */
+.cards{
+    display:flex;
+    flex-wrap:wrap;
+    gap:25px;
+    justify-content:center;
+    padding:25px;
+}
+.card{
+    background:white;
+    padding:30px;
+    width:240px;
+    border-radius:40px 20px 50px 30px;
+    box-shadow:0 4px 12px var(--sombra);
+    cursor:pointer;
+    transition:.3s;
+    animation:floatUp 1s ease;
+    text-align:center;
+}
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 8px 20px var(--sombra);
+}
+@keyframes floatUp{
+    from{opacity:0;transform:translateY(25px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* ---- SECCIÓN IDIOMA ---- */
+#idiomaSeccion{
+    display:none;
+    margin:25px auto;
+    width:90%;
+    background:white;
+    border-radius:30px;
+    padding:25px;
+    box-shadow:0 4px 20px var(--sombra);
+    animation:fadeIn 1s ease;
+}
+
+#volverBtn{
+    background:var(--azul);
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+/* ---- SUBCATEGORÍAS ---- */
+.subcards{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:center;
+    margin-top:20px;
+}
+
+/* ---- JUEGO ---- */
+#juegoBox{
+    display:none;
+    margin-top:20px;
+    background:var(--verde2);
+    padding:25px;
+    border-radius:25px;
+    box-shadow:inset 0 0 10px rgba(0,0,0,0.15);
+}
+input{
+    width:70%;
+    padding:12px;
+    border-radius:15px;
+    border:2px solid var(--azul);
+}
+
+/* ---- EFECTO DE PUNTOS ---- */
+#plusPoint{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:2rem;
+    font-weight:bold;
+    color:#0ac34a;
+    opacity:0;
+    transition:.4s;
+}
+
+footer{
+    margin-top:40px;
+    background:var(--azul);
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+</style>
+</head>
+<body>
+
+<!-- ONDAS -->
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
+
+<header>
+    <h2>LinguaBloom 🌱</h2>
+    <div id="headerButtons">
+        <button class="btn login-btn" onclick="location.href='iniciar.html'">Iniciar sesión</button>
+    </div>
+</header>
+
+<div class="banner">Aprende idiomas con estilo 🌍✨</div>
+<div id="frase"></div>
+
+<h3 style="text-align:center; font-size:1.7rem;">Elige un idioma</h3>
+
+<div class="cards">
+    <div class="card" onclick="abrirIdioma('Inglés')">🇺🇸 Inglés</div>
+    <div class="card" onclick="abrirIdioma('Francés')">🇫🇷 Francés</div>
+    <div class="card" onclick="abrirIdioma('Japonés')">🇯🇵 Japonés</div>
+</div>
+
+<!-- SECCIÓN DEL IDIOMA -->
+<div id="idiomaSeccion">
+    <button id="volverBtn" onclick="cerrarIdioma()">← Volver</button>
+    <h2 id="tituloIdioma"></h2>
+
+    <h3 style="text-align:center;">Elige una categoría</h3>
+
+    <div class="subcards">
+        <div class="card" onclick="iniciarJuego('vocabulario')">📘 Vocabulario básico</div>
+        <div class="card" onclick="iniciarJuego('animales')">🐾 Animales</div>
+        <div class="card" onclick="iniciarJuego('comida')">🍎 Comida</div>
+        <div class="card" onclick="iniciarJuego('colores')">🎨 Colores</div>
+        <div class="card" onclick="iniciarJuego('casa')">🏠 La casa</div>
+        <div class="card" onclick="iniciarJuego('verbos')">⚡ Verbos simples</div>
+    </div>
+
+    <!-- JUEGO -->
+    <div id="juegoBox">
+        <h3 id="tituloJuego"></h3>
+        <p><b>Palabra:</b> <span id="palabra"></span></p>
+        <input id="respuesta" placeholder="Tu respuesta...">
+        <button onclick="verificar()">Verificar</button>
+        <p id="resultado"></p>
+        <p><b>Puntos:</b> <span id="puntos"></span></p>
+        <div id="plusPoint">+1</div>
+    </div>
+</div>
+
+<footer>LinguaBloom © 2025 — Aprende cada día más 🌟</footer>
+
+
+<script>
+/* ---- FRASES ---- */
+const frases=[
+    "Cada palabra nueva es un paso más. 🌱",
+    "Hoy es un buen día para aprender. ✨",
+    "La constancia te hará bilingüe. 💪",
+    "Sigue así, vas perfecto. 🌟",
+    "Tu futuro habla otro idioma. 🔥"
+];
+document.getElementById("frase").innerText=frases[Math.floor(Math.random()*frases.length)];
+
+/* ---- SESIÓN ---- */
+let usuario=localStorage.getItem("usuarioActual");
+
+if(usuario){
+    document.getElementById("headerButtons").innerHTML=`
+        <button class='btn login-btn'>${usuario}</button>
+        <button class='btn logout-btn' onclick='cerrarSesion()'>Cerrar sesión</button>
+    `;
+}
+function cerrarSesion(){
+    localStorage.removeItem("usuarioActual");
+    location.reload();
+}
+
+/* ---- PUNTOS ---- */
+let puntos = usuario ? parseInt(localStorage.getItem("puntos_"+usuario)) || 0 : 0;
+document.getElementById("puntos").innerText=puntos;
+
+const plusPoint=document.getElementById("plusPoint");
+
+/* ---- DICCIONARIO (sin emojis) ---- */
+const diccionario={
+    Inglés:{
+        vocabulario:{ cat:"gato", dog:"perro", sun:"sol", moon:"luna", water:"agua", tree:"árbol", book:"libro", phone:"teléfono", car:"auto" },
+        animales:{ lion:"león", tiger:"tigre", bird:"pájaro", fish:"pez", cow:"vaca", horse:"caballo" },
+        comida:{ apple:"manzana", bread:"pan", rice:"arroz", milk:"leche", cheese:"queso", banana:"banana" },
+        colores:{ red:"rojo", blue:"azul", yellow:"amarillo", green:"verde", black:"negro", white:"blanco" },
+        casa:{ bed:"cama", door:"puerta", table:"mesa", chair:"silla", window:"ventana" },
+        verbos:{ run:"correr", eat:"comer", read:"leer", jump:"saltar", sleep:"dormir" }
+    },
+
+    Francés:{
+        vocabulario:{ chat:"gato", chien:"perro", soleil:"sol", lune:"luna", eau:"agua", arbre:"árbol", livre:"libro" },
+        animales:{ lion:"león", tigre:"tigre", oiseau:"pájaro", poisson:"pez" },
+        comida:{ pomme:"manzana", pain:"pan", lait:"leche", fromage:"queso" },
+        colores:{ rouge:"rojo", bleu:"azul", jaune:"amarillo", vert:"verde" },
+        casa:{ lit:"cama", porte:"puerta", table:"mesa", chaise:"silla" },
+        verbos:{ courir:"correr", manger:"comer", lire:"leer", dormir:"dormir" }
+    },
+
+    Japonés:{
+        vocabulario:{ neko:"gato", inu:"perro", taiyou:"sol", tsuki:"luna", mizu:"agua", ki:"árbol", hon:"libro" },
+        animales:{ tora:"tigre", sakana:"pez", uma:"caballo" },
+        comida:{ ringo:"manzana", pan:"pan", gyunyu:"leche", chizu:"queso" },
+        colores:{ aka:"rojo", ao:"azul", kiiro:"amarillo", midori:"verde" },
+        casa:{ beddo:"cama", doa:"puerta", teeburu:"mesa", isu:"silla" },
+        verbos:{ hashiru:"correr", taberu:"comer", yomu:"leer", neru:"dormir" }
+    }
+};
+
+/* ---- FUNCIONES ---- */
+let idiomaActual="";
+let categoriaActual="";
+let palabraCorrecta="";
+
+function abrirIdioma(idioma){
+    if(!usuario){ alert("Debes iniciar sesión."); return; }
+    idiomaActual=idioma;
+    document.getElementById("idiomaSeccion").style.display="block";
+    document.getElementById("tituloIdioma").innerText=idioma;
+}
+function cerrarIdioma(){
+    document.getElementById("idiomaSeccion").style.display="none";
+    document.getElementById("juegoBox").style.display="none";
+}
+
+function iniciarJuego(cat){
+    categoriaActual=cat;
+    document.getElementById("juegoBox").style.display="block";
+
+    const titulos={
+        vocabulario:"Vocabulario básico",
+        animales:"Animales",
+        comida:"Comida",
+        colores:"Colores",
+        casa:"La casa",
+        verbos:"Verbos simples"
+    };
+
+    document.getElementById("tituloJuego").innerText=titulos[cat];
+
+    nuevaPalabra();
+}
+
+function nuevaPalabra(){
+    const lista=diccionario[idiomaActual][categoriaActual];
+    const keys=Object.keys(lista);
+
+    const key=keys[Math.floor(Math.random()*keys.length)];
+
+    document.getElementById("palabra").innerText=key;
+    palabraCorrecta=lista[key];
+    document.getElementById("resultado").innerText="";
+    document.getElementById("respuesta").value="";
+}
+
+function verificar(){
+    let resp=document.getElementById("respuesta").value.toLowerCase();
+
+    if(resp===palabraCorrecta){
+        document.getElementById("resultado").innerHTML="✔ Correcto 🎉";
+        document.getElementById("resultado").style.color="green";
+
+        puntos++;
+        localStorage.setItem("puntos_"+usuario,puntos);
+        document.getElementById("puntos").innerText=puntos;
+
+        plusPoint.style.opacity=1;
+        plusPoint.style.transform="translateY(-20px)";
+        setTimeout(()=>{
+            plusPoint.style.opacity=0;
+            plusPoint.style.transform="translateY(0)";
+        },600);
+
+    } else {
+        document.getElementById("resultado").innerHTML=
+            "❌ Incorrecto<br>La respuesta correcta es <b>"+palabraCorrecta+"</b>";
+        document.getElementById("resultado").style.color="red";
+    }
+
+    setTimeout(nuevaPalabra,1600);
+}
+</script>
+</body>
+</html>
